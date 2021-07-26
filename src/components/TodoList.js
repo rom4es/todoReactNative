@@ -1,28 +1,27 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import {connect} from 'react-redux';
+import {StyleSheet, View, Text} from 'react-native';
 import TodoFilter from './TodoFilter.js';
 import TodoItem from './TodoItem.js';
 
 function TodoList({todos, filterValue}) {
-
-  const filterTodos = () => {
-    return (filterValue > 0)
-      ? todos.filter( (item) => item.importance === filterValue )
-      : todos
-  }
+  const GetTodos = () => {
+    const resultItems = (
+      filterValue > 0
+        ? todos.filter(item => item.importance === filterValue)
+        : todos
+    ).map(item => <TodoItem key={item.id} data={item} />);
+    return resultItems ? (
+      resultItems
+    ) : (
+      <Text style={styles.empty}>Задач нет</Text>
+    );
+  };
 
   return (
     <View>
       <TodoFilter />
-      <View>
-        {filterTodos().length ?
-          filterTodos().map( (item) => 
-            <TodoItem key={item.id} data={item}/>
-          ) :
-          <Text style={styles.empty}>Задач нет</Text>
-        }
-      </View>
+      <View>{GetTodos()}</View>
     </View>
   );
 }
@@ -32,15 +31,15 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 25,
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
 
 const mapStateToProps = state => {
   return {
     todos: state.todos.todos,
-    filterValue: state.todos.filterValue
-  }
-}
+    filterValue: state.todos.filterValue,
+  };
+};
 
-export default connect(mapStateToProps, null)(TodoList)
+export default connect(mapStateToProps, null)(TodoList);

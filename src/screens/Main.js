@@ -1,32 +1,60 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity, ScrollView, Button, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  View,
+} from 'react-native';
 import TodoList from '../components/TodoList.js';
 
-function Main({ navigation }) {
+function Main({navigation}) {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.button}>
-        <Button
-          title='Создать задачу'
-          color='#14a28f'
-          onPress={() => navigation.navigate('Task')}
-        />
-      </View>
-      <TodoList />
-    </ScrollView> 
+    <View style={styles.container}>
+      <ScrollView style={styles.containerTodo}>
+        <TodoList />
+      </ScrollView>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Task')}>
+        <Image style={styles.icon} source={require('../assets/img/add.png')} />
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15
+  },
+  containerTodo: {
+    padding: 15,
   },
   button: {
-    marginTop: 10,
-    marginBottom: 20
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    backgroundColor: '#f73149',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 7,
+    elevation: 10,
+  },
+  icon: {
+    width: 35,
+    height: 35,
   },
 });
 
-export default Main
+export default Main;

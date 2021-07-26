@@ -1,37 +1,37 @@
-export function addItem(item){
+export function addItem(item) {
   return {
     type: 'ADD_ITEM',
-    payload: item
-  }
+    payload: item,
+  };
 }
 
-export function editItem(item){
+export function editItem(item) {
   return {
     type: 'EDIT_ITEM',
-    payload: item
-  }
+    payload: item,
+  };
 }
 
-export function deleteItem(id){
+export function deleteItem(id) {
   return {
     type: 'DELETE_ITEM',
-    payload: id
-  }
+    payload: id,
+  };
 }
 
-export function setCompleted(id, date){
+export function setCompleted(id, date) {
   return {
     type: 'SET_COMPLETED',
     payload: {
       id,
-      date
-    }
-  }
+      date,
+    },
+  };
 }
 
-export function changeFilterValue(value){
+export function changeFilterValue(value) {
   return {
     type: 'CHANGE_FILTER_VALUE',
-    payload: value
-  }
+    payload: value,
+  };
 }

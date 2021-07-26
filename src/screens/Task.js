@@ -1,25 +1,35 @@
 import 'react-native-gesture-handler';
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { addItem, editItem } from '../actions'
-import { StyleSheet, Button, TextInput, View, Text, Platform } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {addItem, editItem} from '../actions';
+import {
+  StyleSheet,
+  Button,
+  TextInput,
+  View,
+  Text,
+  Platform,
+} from 'react-native';
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RNPickerSelect from 'react-native-picker-select';
-import { importanceItems } from '../helpers'
+import {importanceItems} from '../helpers';
 
 function Task(props) {
-
   let id, todoItem;
-  if(props.route.params){
+  if (props.route.params) {
     id = props.route.params.id;
-    todoItem = id ? props.todos.find(item => item.id == id) : null;
+    todoItem = id ? props.todos.find(item => item.id === id) : null;
   }
 
   const [name, setName] = useState(todoItem ? todoItem.name : '');
-  const [description, setDescription] = useState(todoItem ? todoItem.description : '');
+  const [description, setDescription] = useState(
+    todoItem ? todoItem.description : '',
+  );
   const [deadline, setDeadline] = useState(todoItem ? todoItem.deadline : '');
-  const [importance, setImportance] = useState(todoItem ? todoItem.importance : '');
+  const [importance, setImportance] = useState(
+    todoItem ? todoItem.importance : '',
+  );
   const [completed] = useState(todoItem ? todoItem.completed : '');
 
   const [errorName, setErrorName] = useState(false);
@@ -28,45 +38,46 @@ function Task(props) {
   const [clickSubmit, setClickSubmit] = useState(false);
 
   useEffect(() => {
-    setErrorName(!Boolean(name));
+    setErrorName(!name);
   }, [name]);
 
   useEffect(() => {
-    setErrorDescription(!Boolean(description));
+    setErrorDescription(!description);
   }, [description]);
 
   const onPressSubmit = () => {
-
     setClickSubmit(true);
-    if(errorName || errorDescription){
+    if (errorName || errorDescription) {
       return false;
     }
 
-    if(id){
+    if (id) {
       props.editItem({
         id: id,
         name: name,
         description: description,
         importance: importance ? importance : 1,
         deadline: deadline,
-        completed: completed
-      })
-    }else{
+        completed: completed,
+      });
+    } else {
       props.addItem({
         name: name,
         description: description,
         importance: importance ? importance : 1,
         deadline: deadline,
-        completed: completed
-      })
+        completed: completed,
+      });
     }
 
-    props.navigation.goBack()
-  }
+    props.navigation.goBack();
+  };
 
   // ===== DateTimePicker =====
 
-  const [datePicker, setDatePicker] = useState(deadline ? deadline : new Date());
+  const [datePicker, setDatePicker] = useState(
+    deadline ? deadline : new Date(),
+  );
   const [modePicker, setModePicker] = useState('date');
   const [showPicker, setShowPicker] = useState(false);
 
@@ -77,7 +88,7 @@ function Task(props) {
     setDeadline(currentDate);
   };
 
-  const showMode = (currentMode) => {
+  const showMode = currentMode => {
     setShowPicker(true);
     setModePicker(currentMode);
   };
@@ -94,11 +105,13 @@ function Task(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{id ? 'Редактирование задачи' : 'Новая задача'}</Text>
+      <Text style={styles.title}>
+        {id ? 'Редактирование задачи' : 'Новая задача'}
+      </Text>
       <View style={styles.inputWrapper}>
-        <TextInput 
+        <TextInput
           style={styles.input}
-          placeholder='Название'
+          placeholder="Название"
           defaultValue={name}
           onChangeText={text => setName(text)}
         />
@@ -107,9 +120,9 @@ function Task(props) {
         )}
       </View>
       <View style={styles.inputWrapper}>
-        <TextInput 
+        <TextInput
           style={styles.input}
-          placeholder='Описание'
+          placeholder="Описание"
           defaultValue={description}
           multiline={true}
           numberOfLines={2}
@@ -124,7 +137,7 @@ function Task(props) {
         <View style={styles.selectWrapper}>
           <RNPickerSelect
             style={styles.select}
-            onValueChange={(value) => setImportance(value)}
+            onValueChange={value => setImportance(value)}
             items={importanceItems}
             placeholder={{}}
             value={importance}
@@ -132,7 +145,10 @@ function Task(props) {
         </View>
       </View>
       <View style={styles.containerDate}>
-        <Text style={styles.date}>Дэдлайн: {deadline ? moment(deadline).format('DD.MM.YYYY HH:mm:ss') : ''}</Text>
+        <Text style={styles.date}>
+          Дэдлайн:{' '}
+          {deadline ? moment(deadline).format('DD.MM.YYYY HH:mm:ss') : ''}
+        </Text>
         <View>
           <Button onPress={showDatepicker} title="Установить дату" />
         </View>
@@ -153,7 +169,7 @@ function Task(props) {
       <View style={styles.buttonSubmit}>
         <Button
           title={id ? 'Изменить' : 'Сохранить'}
-          color='#14a28f'
+          color="#14a28f"
           onPress={onPressSubmit}
         />
       </View>
@@ -165,12 +181,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     marginBottom: 10,
     fontSize: 22,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   inputWrapper: {
     minWidth: 200,
@@ -185,42 +201,42 @@ const styles = StyleSheet.create({
   },
   importance: {
     width: 200,
-    marginBottom: 20
+    marginBottom: 20,
   },
-  selectWrapper:{
+  selectWrapper: {
     backgroundColor: '#CACACA',
   },
   selectText: {
     marginBottom: 4,
     fontSize: 16,
-    fontWeight: 'bold' 
+    fontWeight: 'bold',
   },
-  containerDate:{
+  containerDate: {
     marginBottom: 30,
   },
-  date:{
+  date: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: 10,
   },
   buttonSubmit: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   errorText: {
-    color: '#F00'
-  }
+    color: '#F00',
+  },
 });
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos.todos
-  }
-}
+    todos: state.todos.todos,
+  };
+};
 
 const mapDispatchToProps = {
   addItem,
-  editItem
-}
+  editItem,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Task)
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

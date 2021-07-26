@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import React from 'react';
+import {connect} from 'react-redux';
+import {StyleSheet, View, Text} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import { importanceItems } from '../helpers'
-import { changeFilterValue } from '../actions'
+import {importanceItems} from '../helpers';
+import {changeFilterValue} from '../actions';
 
 function TodoFilter(props) {
-
   return (
     <View style={styles.selectWrapper}>
       <Text style={styles.selectText}>Фильтр по важности задачи: </Text>
       <View style={styles.select}>
         <RNPickerSelect
-          onValueChange={(value) => props.changeFilterValue(value)}
+          onValueChange={value => props.changeFilterValue(value)}
           items={[{label: 'Все', value: 0}].concat(importanceItems)}
           placeholder={{}}
           value={props.filterValue}
@@ -25,26 +24,26 @@ function TodoFilter(props) {
 const styles = StyleSheet.create({
   selectWrapper: {
     marginTop: 0,
-    marginBottom: 20
+    marginBottom: 20,
   },
   selectText: {
     marginBottom: 4,
     fontSize: 16,
-    fontWeight: 'bold' 
+    fontWeight: 'bold',
   },
   select: {
-    backgroundColor: '#CACACA',
-  }
+    backgroundColor: '#dcdbe1',
+  },
 });
 
 const mapStateToProps = state => {
   return {
-    filterValue: state.todos.filterValue
-  }
-}
+    filterValue: state.todos.filterValue,
+  };
+};
 
 const mapDispatchToProps = {
-  changeFilterValue
-}
+  changeFilterValue,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoFilter)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoFilter);
