@@ -1,17 +1,20 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {StyleSheet, View, Text} from 'react-native';
 import TodoFilter from './TodoFilter.js';
 import TodoItem from './TodoItem.js';
+import stylesComponent from '../styles/TodoList.js';
 
-function TodoList({todos, filterValue}) {
+function TodoList() {
+  const todos = useSelector(state => state.todos.todos);
+  const filterValue = useSelector(state => state.todos.filterValue);
   const GetTodos = () => {
     const resultItems = (
       filterValue > 0
         ? todos.filter(item => item.importance === filterValue)
         : todos
     ).map(item => <TodoItem key={item.id} data={item} />);
-    return resultItems ? (
+    return resultItems.length ? (
       resultItems
     ) : (
       <Text style={styles.empty}>Задач нет</Text>
@@ -26,20 +29,6 @@ function TodoList({todos, filterValue}) {
   );
 }
 
-const styles = StyleSheet.create({
-  empty: {
-    marginTop: 15,
-    marginBottom: 25,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
+const styles = StyleSheet.create(stylesComponent);
 
-const mapStateToProps = state => {
-  return {
-    todos: state.todos.todos,
-    filterValue: state.todos.filterValue,
-  };
-};
-
-export default connect(mapStateToProps, null)(TodoList);
+export default TodoList;
