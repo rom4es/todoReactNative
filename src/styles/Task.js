@@ -31,26 +31,11 @@ const styles = {
   selectWrapper: Common.selectWrapper,
   selectText: Common.selectText,
   select: Common.select,
-  containerDate: {
-    marginBottom: 30,
-  },
-  date: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
+  buttonSubmit: Common.button,
+  buttonSubmitText: Common.buttonText,
   errorText: {
     color: '#F00',
   },
-  actions: Common.actions,
-  button: {
-    ...Common.button,
-    ...Common.buttonIcon,
-    ...Common.buttonMargin,
-  },
-  icon: Common.buttonIconImage,
-  buttonSubmit: Common.button,
-  buttonSubmitText: Common.buttonText,
 };
 
 export default styles;

@@ -28,7 +28,6 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 let store = createStore(persistedReducer);
-// eslint-disable-next-line no-unused-vars
 let persistor = persistStore(store);
 
 function App() {

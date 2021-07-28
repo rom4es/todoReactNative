@@ -4,18 +4,15 @@ import {useSelector, useDispatch} from 'react-redux';
 import {addItem, editItem} from '../actions';
 import {
   StyleSheet,
-  Image,
   TouchableOpacity,
   TextInput,
   View,
   ScrollView,
   Text,
-  Platform,
   Dimensions,
 } from 'react-native';
-import moment from 'moment';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import RNPickerSelect from 'react-native-picker-select';
+import Picker from '../components/Picker.js';
 import {importanceItems} from '../helpers';
 import stylesComponent from '../styles/Task.js';
 
@@ -34,7 +31,7 @@ function Task(props) {
     todoItem ? todoItem.description : '',
   );
   const [deadline, setDeadline] = useState(
-    todoItem ? new Date(todoItem.deadline) : '',
+    todoItem && todoItem.deadline ? new Date(todoItem.deadline) : '',
   );
   const [importance, setImportance] = useState(
     todoItem ? todoItem.importance : '',
@@ -86,36 +83,6 @@ function Task(props) {
     props.navigation.goBack();
   };
 
-  // ===== DateTimePicker =====
-
-  const [datePicker, setDatePicker] = useState(
-    deadline ? deadline : new Date(),
-  );
-  const [modePicker, setModePicker] = useState('date');
-  const [showPicker, setShowPicker] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || datePicker;
-    setShowPicker(Platform.OS === 'ios');
-    setDatePicker(currentDate);
-    setDeadline(currentDate);
-  };
-
-  const showMode = currentMode => {
-    setShowPicker(true);
-    setModePicker(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
-
-  // ===== =====
-
   return (
     <View style={styles.container}>
       <ScrollView
@@ -160,38 +127,7 @@ function Task(props) {
             />
           </View>
         </View>
-        <View style={styles.containerDate}>
-          {deadline ? (
-            <Text style={styles.date}>
-              Deadline:{' '}
-              {deadline ? moment(deadline).format('DD.MM.YYYY HH:mm') : ''}
-            </Text>
-          ) : null}
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.button} onPress={showDatepicker}>
-              <Image
-                style={styles.icon}
-                source={require('../assets/img/calendar.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={showTimepicker}>
-              <Image
-                style={styles.icon}
-                source={require('../assets/img/clock.png')}
-              />
-            </TouchableOpacity>
-          </View>
-          {showPicker && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={datePicker}
-              mode={modePicker}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
-        </View>
+        <Picker deadline={deadline} setDeadline={setDeadline} />
         <View>
           <TouchableOpacity style={styles.buttonSubmit} onPress={onPressSubmit}>
             <Text style={styles.buttonSubmitText}>
