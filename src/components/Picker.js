@@ -25,10 +25,11 @@ function Picker({deadline, setDeadline}) {
    * @param {object} selectedDate выбранная дата
    */
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || datePicker;
     setShowPicker(Platform.OS === 'ios');
-    setDatePicker(currentDate);
-    setDeadline(currentDate);
+    if (selectedDate) {
+      setDatePicker(selectedDate);
+      setDeadline(selectedDate);
+    }
   };
 
   /**
