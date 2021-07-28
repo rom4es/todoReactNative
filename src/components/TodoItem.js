@@ -18,6 +18,10 @@ function TodoItem(props) {
     !props.data.completed &&
     new Date(props.data.deadline).getTime() < new Date().getTime();
 
+  /**
+   * Проверить выполнена ли задача
+   * @returns {jsx | null}
+   */
   const CheckCompleted = () => {
     return props.data.completed ? (
       <Text style={styles.completedCont}>
@@ -26,6 +30,10 @@ function TodoItem(props) {
     ) : null;
   };
 
+  /**
+   * Получить важность задачи
+   * @returns {string}
+   */
   const getImportance = () => {
     const importance = importanceItems.find(
       item => item.value === props.data.importance,
@@ -33,6 +41,9 @@ function TodoItem(props) {
     return importance ? importance.label : '';
   };
 
+  /**
+   * Удалить задачу после подтверждения
+   */
   const deleteItemСonfirmed = () => {
     setModalVisible(false);
     dispatch(deleteItem(props.data.id));

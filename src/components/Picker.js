@@ -19,6 +19,11 @@ function Picker({deadline, setDeadline}) {
   const [modePicker, setModePicker] = useState('date');
   const [showPicker, setShowPicker] = useState(false);
 
+  /**
+   * Изменить дату deadline
+   * @param {object} event native event
+   * @param {object} selectedDate выбранная дата
+   */
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || datePicker;
     setShowPicker(Platform.OS === 'ios');
@@ -26,15 +31,25 @@ function Picker({deadline, setDeadline}) {
     setDeadline(currentDate);
   };
 
+  /**
+   * Отображение пикера в одном из режимов: date - выбор даты, time - выбор времени
+   * @param {object} currentMode режим отображения
+   */
   const showMode = currentMode => {
     setShowPicker(true);
     setModePicker(currentMode);
   };
 
+  /**
+   * Показать выбор даты
+   */
   const showDatepicker = () => {
     showMode('date');
   };
 
+  /**
+   * Показать выбор времени
+   */
   const showTimepicker = () => {
     showMode('time');
   };

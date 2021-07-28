@@ -8,6 +8,11 @@ import stylesComponent from '../styles/TodoList.js';
 function TodoList() {
   const todos = useSelector(state => state.todos.todos);
   const filterValue = useSelector(state => state.todos.filterValue);
+
+  /**
+   * Получить список задач с учётом фильтра
+   * @returns {jsx}
+   */
   const GetTodos = () => {
     const resultItems = (
       filterValue > 0

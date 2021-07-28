@@ -51,6 +51,9 @@ function Task(props) {
     setErrorDescription(!description);
   }, [description]);
 
+  /**
+   * Действия после сохранения/изменения задачи
+   */
   const onPressSubmit = () => {
     setClickSubmit(true);
     if (errorName || errorDescription) {
