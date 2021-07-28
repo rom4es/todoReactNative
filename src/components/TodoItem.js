@@ -54,10 +54,13 @@ function TodoItem(props) {
       <View style={[styles.container, expired ? styles.expired : {}]}>
         <Text style={styles.title}>{props.data.name}</Text>
         <Text style={styles.description}>{props.data.description}</Text>
-        <Text style={styles.importance}>{getImportance()}</Text>
+        <Text style={styles.importance}>
+          <Text style={styles.bold}>Важность задачи:</Text> {getImportance()}
+        </Text>
         {props.data.deadline ? (
           <Text style={styles.deadline}>
-            Deadline: {moment(props.data.deadline).format('DD.MM.YYYY HH:mm')}
+            <Text style={styles.bold}>Deadline:</Text>{' '}
+            {moment(props.data.deadline).format('DD.MM.YYYY HH:mm')}
           </Text>
         ) : null}
         {CheckCompleted()}

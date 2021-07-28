@@ -58,3 +58,7 @@ export const select = {
   backgroundColor: '#d6ccd5',
   borderRadius: 10,
 };
+
+export const bold = {
+  fontWeight: 'bold',
+};

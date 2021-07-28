@@ -18,12 +18,10 @@ const styles = {
   importance: {
     marginBottom: 10,
     fontSize: 16,
-    fontWeight: 'bold',
   },
   deadline: {
     marginBottom: 10,
     fontSize: 16,
-    fontWeight: 'bold',
   },
   completedCont: {
     marginBottom: 10,
@@ -56,6 +54,7 @@ const styles = {
   expired: {
     backgroundColor: '#d44646',
   },
+  bold: Common.bold,
 };
 
 export default styles;
