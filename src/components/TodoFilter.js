@@ -26,4 +26,4 @@ function TodoFilter() {
 
 const styles = StyleSheet.create(stylesComponent);
 
-export default TodoFilter;
+export default React.memo(TodoFilter);
